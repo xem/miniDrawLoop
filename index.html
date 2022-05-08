@@ -1,0 +1,72 @@
+<tt>
+<h3>Mini Draw Loop</h3>
+<p>Draw something with the mouse. Release the mouse. It loops.
+<p>Golfed in 617 bytes.
+<style>canvas { border: 1px solid }</style>
+<br>
+<br>
+
+
+
+<canvas id=c><script>
+//m=o=0;
+t=c.getContext`2d`;
+
+// Path (list of coordinates)
+p=[];
+
+// Path (list of offsets)
+P=[];
+
+// Mousedown: m flag = 1, save current position in p, copy it in X, Y and A, B
+onmousedown=e=>p=[[A=X=x,B=Y=y,m=1,P=[]]];
+
+// Mouseup: m flag and animation offset = 0
+onmouseup=e=>m=o=0;
+
+// Mousemove: set current position (x, y)
+onmousemove=e=>(x=e.offsetX,y=e.offsetY);
+
+// Loop
+setInterval(z=>{
+
+  // if mouse down: 
+  // save current position (x, y) in p, copy it in X, Y
+  // save current offset in P
+  // keep animation offset (o) at 0
+  if(m){
+    P.push([x-X,y-Y]);
+    p.push([X=x,Y=y]);
+    o=0;
+  }
+  
+  // if P not empty
+  //if(p[0]){
+  
+    // Reset canvas
+    c.width^=0;
+    
+    // Save start position in A, B
+    [A,B]=p[0];
+    
+    // Draw as many lines as the number of items in P, starting from the current position, and update it
+    for(i=0;i<o+P.length;i++){
+      z=P[(i)%P.length];
+      A+=z[0];
+      B+=z[1];
+      if(i>o)t.lineTo(A,B);
+    }
+    
+    // Render, increment offset
+    t.stroke();
+    o++;
+  //}
+})
+
+
+
+
+
+// Golf
+// t=c.getContext`2d`,p=[],P=[],onmousedown=o=>p=[[A=X=x,B=Y=y,m=1,P=[]]],onmouseup=e=>m=o=0,onmousemove=o=>(x=o.offsetX,y=o.offsetY),setInterval((e=>{for(m&&(P.push([x-X,y-Y]),p.push([X=x,Y=y]),o=0),c.width^=0,[A,B]=p[0],i=0;i<o+P.length;i++)e=P[i%P.length],A+=e[0],B+=e[1],i>o&&t.lineTo(A,B);t.stroke(),o++})),t=c.getContext`2d`,p=[],P=[],onmousedown=o=>p=[[A=X=x,B=Y=y,m=1,P=[]]],onmouseup=e=>m=o=0,onmousemove=o=>(x=o.offsetX,y=o.offsetY),setInterval((e=>{for(m&&(P.push([x-X,y-Y]),p.push([X=x,Y=y]),o=0),c.width^=0,[A,B]=p[0],i=0;i<o+P.length;i++)e=P[i%P.length],A+=e[0],B+=e[1],i>o&&t.lineTo(A,B);t.stroke(),o++}))
+</script>
