@@ -1,16 +1,16 @@
 <tt>
 <h3>Mini Draw Loop</h3>
 <p>Draw something with the mouse. Release the mouse. It loops.
-<p>Golfed in 301 bytes.
+<p>Golfed in 289 bytes.
 
-<pre style="background:#222;color:#fff;padding:10px;word-wrap:break-word;width:450px;position:relative;font-size:12px">
-&lt;canvas id=c&gt;&lt;script&gt;
-t=c.getContext`2d`,onmousedown=o=>(C=X=x,D=Y=y,m=1,P=[]),
-onmouseup=e=>m=o=0,onmousemove=o=>(x=o.offsetX,y=o.offsetY),
-setInterval`for(m?(P.push([x-X,y-Y]),X=x,Y=y,o=0):o++,
-A=C,B=D,c.width^=i=0;i&o+P.length;i++)e=P[i%P.length],A+=e
-[0],B+=e[1],i>o&&t.lineTo(A,B);t.stroke()`
-&lt;/script&gt;
+<pre style="background:#222;color:#fff;padding:10px;word-wrap:break-word;white-space:pre;width:450px;position:relative;font-size:12px">
+&lt;canvas id=c&gt;&lt;script&gt;t=c.getContext`2d`,
+onmousedown=o=>(C=X=x,D=Y=y,m=1,P=[]),
+onmouseup=e=>m=o=0,
+onmousemove=o=>(x=o.offsetX,y=o.offsetY),
+setInterval`for(m?(Z=P.push([x-X,y-Y]),X=x,Y=y,o=0):o++,
+A=C,B=D,c.width^=i=0;i&lt;o+Z;i++)e=P[i%Z],A+=e[0],B+=e[1],
+i>o&&t.lineTo(A,B);t.stroke()`&lt;/script&gt;
 </pre>
 
 
@@ -21,6 +21,10 @@ A=C,B=D,c.width^=i=0;i&o+P.length;i++)e=P[i%P.length],A+=e
 
 
 <canvas id=c width=600 height=400><script>
+t=c.getContext`2d`,onmousedown=o=>(C=X=x,D=Y=y,m=1,P=[]),onmouseup=e=>m=o=0,onmousemove=o=>(x=o.offsetX,y=o.offsetY),setInterval`for(m?(Z=P.push([x-X,y-Y]),X=x,Y=y,o=0):o++,A=C,B=D,c.width^=i=0;i<o+Z;i++)e=P[i%Z],A+=e[0],B+=e[1],i>o&&t.lineTo(A,B);t.stroke()`
+
+/*
+
 t=c.getContext`2d`;
 
 // Mousedown: m flag = 1, save start position in X, Y and C, D
@@ -40,7 +44,7 @@ setInterval(z=>{
   // save current offset in P
   // keep animation offset (o) at 0
   if(m){
-    P.push([x-X,y-Y]);
+    Z=P.push([x-X,y-Y]);
     X=x;
     Y=y;
     o=0;
@@ -54,8 +58,8 @@ setInterval(z=>{
   B=D;
   
   // Reset canvas, draw as many lines as the number of items in P, starting from the current position, and update it
-  for(c.width^=i=0;i<o+P.length;i++){
-    z=P[i%P.length];
+  for(c.width^=i=0;i<o+Z;i++){
+    z=P[i%Z];
     A+=z[0];
     B+=z[1];
     if(i>o)t.lineTo(A,B);
@@ -65,10 +69,6 @@ setInterval(z=>{
   t.stroke();
 })
 
+*/
 
-
-
-
-// Golf
-// t=c.getContext`2d`,onmousedown=o=>(C=X=x,D=Y=y,m=1,P=[]),onmouseup=e=>m=o=0,onmousemove=o=>(x=o.offsetX,y=o.offsetY),setInterval((e=>{for(m?(P.push([x-X,y-Y]),X=x,Y=y,o=0):o++,A=C,B=D,c.width^=i=0;i<o+P.length;i++)e=P[i%P.length],A+=e[0],B+=e[1],i>o&&t.lineTo(A,B);t.stroke()}))
 </script>
